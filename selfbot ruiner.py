@@ -1,6 +1,6 @@
 # CONFIG
 # ---------
-token = "MTQ5ODg4ODU2NTM4MzQ5NTY4.XY9XWQ.463iE4FgrkwWSsjSJCFFZg-q-rQ" # To find this, it's harder than it used to be. Please Google the process.
+
 prefix = "~" # This will be used at the start of commands.
 # ----------
 
