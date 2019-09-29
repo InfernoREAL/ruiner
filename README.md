@@ -1,4 +1,4 @@
-# Swanged Ruiner
+# Ruiner
 
 Originally based of Innocent Self Bot but a recode dedicated to ultimate destruction of servers, allows many more features :)
 
