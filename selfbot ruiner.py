@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # CONFIG
 # ---------
 token = input("Your Discord Token:") 
@@ -6,8 +7,18 @@ prefix = "~" #
 
 import discord
 import discord.client
+import requests
 import time
+import random
+import json
+import shlex
+import urllib
+import secrets
 from discord.ext import commands
+from discord.ext import commands
+
+
+
 
 
 print ("Loading..")
@@ -28,6 +39,31 @@ try:
         else:
             return False
 
+
+    class MemberRoles(commands.MemberConverter):
+      async def convert(self, ctx, argument):
+        member = await super().convert(ctx, argument)
+        return [role.name for role in member.roles[1:]]
+    
+
+    @bot.command()
+    async def duck(ctx):
+        duckimg = str(requests.get('https://random-d.uk/api/v1/random').json()['url'])
+        await ctx.send(duckimg)
+
+
+    @bot.command()
+    async def ducks(ctx):
+        for i in range(0, 499):
+          print('Sending Image Of Duck')
+          duckimg = str(requests.get('https://random-d.uk/api/v1/random').json()['url'])
+          await ctx.send(duckimg)
+
+    @commands.check(self_check)
+    @bot.command()
+    async def roles(ctx, *, member: MemberRoles):
+        await ctx.send('I see the following roles: ' + ', '.join(member))
+
     @commands.check(self_check)
     @bot.command(pass_context=True)
     async def cchannels(ctx, string):
@@ -36,7 +72,6 @@ try:
         for i in range(0, 499):
             print ("The channel " + string + " has been created in " + ctx.guild.name)
             await guild.create_text_channel(string)
-  
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
