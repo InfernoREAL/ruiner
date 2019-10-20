@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # CONFIG
 # ---------
-token = input("Your Discord Token:") 
-prefix = "~" # 
+token = input("Your Discord Token:")
+prefix = "~" #
 # ----------
 
 import discord
@@ -44,17 +44,25 @@ try:
       async def convert(self, ctx, argument):
         member = await super().convert(ctx, argument)
         return [role.name for role in member.roles[1:]]
-    
 
+    @commands.check(self_check)
+    @bot.command()
+    async def rcolor(ctx):
+        guild = ctx.guild
+        for i in range(499):
+          await discord.edit_role(server=586535646550687744, role=586536287792660491, colour=discord.Colour(0xFF0000))
+          time.sleep(2)
+
+    @commands.check(self_check)
     @bot.command()
     async def duck(ctx):
         duckimg = str(requests.get('https://random-d.uk/api/v1/random').json()['url'])
         await ctx.send(duckimg)
 
-
+    @commands.check(self_check)
     @bot.command()
     async def ducks(ctx):
-        for i in range(0, 499):
+        for i in range(499):
           print('Sending Image Of Duck')
           duckimg = str(requests.get('https://random-d.uk/api/v1/random').json()['url'])
           await ctx.send(duckimg)
@@ -69,7 +77,7 @@ try:
     async def cchannels(ctx, string):
         guild = ctx.message.guild
         await ctx.message.delete()
-        for i in range(0, 499):
+        for i in range(499):
             print ("The channel " + string + " has been created in " + ctx.guild.name)
             await guild.create_text_channel(string)
 
@@ -80,7 +88,7 @@ try:
         colour = discord.Colour(0xFF0000)
         await ctx.message.delete()
         print ("The role " + string + " has been created in " + ctx.guild.name)
-        for x in range(0, 250):
+        for x in range(250):
            await guild.create_role(name=string, colour=discord.Colour(0xFF0000))
 
     @commands.check(self_check)
@@ -89,7 +97,7 @@ try:
         guild = ctx.message.guild
         print ("The category " + string + " has been created in " + ctx.guild.name)
         await ctx.message.delete()
-        for x in range(0, 499):
+        for x in range(499):
           await guild.create_category(string)
 
     @bot.command(pass_context=True)
@@ -97,7 +105,7 @@ try:
         guild = ctx.message.guild
         print ("The voice channel " + string + " has been created in " + ctx.guild.name)
         await ctx.message.delete()
-        for x in range(0, 499): 
+        for x in range(499):
           await guild.create_voice_channel(string)
 
     @commands.check(self_check)
@@ -123,7 +131,21 @@ try:
                 print (f"{user.name} has been banned from {ctx.guild.name}")
             except:
                 print (f"{user.name} has FAILED to be banned from {ctx.guild.name}")
-        print ("Action Completed: ball")  
+        print ("Action Completed: ball")
+
+
+    @commands.check(self_check)
+    @bot.command(pass_context=True)
+    async def nickclear(ctx):
+        for user in list(ctx.guild.members):
+            try:
+                await user.edit("")
+                print (f"{user.name} has had their nickname reset in {ctx.guild.name}")
+            except:
+                print(f"{user.name} has failed to have their nickname reset in {ctx.guild.name}. Lacking Permissions?")
+            print("Action Completed: nickclear")
+
+
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -134,7 +156,7 @@ try:
                 await user.edit(nick=rename_to)
                 print (f"{user.name} has been renamed to {rename_to} in {ctx.guild.name}")
             except:
-                print (f"{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}")
+                print (f"{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}. Lacking Permissions?")
         print ("Action Completed: rall")
 
     @commands.check(self_check)
@@ -226,10 +248,10 @@ try:
             except:
                 print (f"{user.name} has FAILED to be banned from {ctx.guild.name}")
         print ("Action Completed: destroy")
-    # Outright destroys a server.
+
 
 except:
     pass
 
 bot.run(token, bot=False)
-# Starts the bot by passing it a token and telling it it isn't really a bot.
+
