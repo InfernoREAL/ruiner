@@ -40,21 +40,9 @@ async def on_ready():
 
     @bot.command(pass_context=True)
     async def spam(self, ctx, *, username:str):
-        """Unbans the user with the specifed name from the server"""
-        try:
-            banlist = await ctx.guild.bans()
-        except discord.errors.Forbidden:
-            await ctx.send(Language.get("moderation.no_ban_perms", ctx))
-            return
-        user = None
-        for ban in banlist:
-            if ban.user.name == username:
-                user = ban.user
-        if user is None:
-            await ctx.send(Language.get("moderation.user_not_banned", ctx).format(username))
-            return
+        user = ban.user
         await ctx.guild.unban(user)
-        await ctx.send(Language.get("moderation.unban_success", ctx).format(user))
+     
 
 
     @bot.command()
