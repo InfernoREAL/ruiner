@@ -42,7 +42,7 @@ async def on_ready():
     async def spam(self, ctx, *, username:str):
         user = ban.user
         await ctx.guild.unban(user)
-     
+
 
 
     @bot.command()

