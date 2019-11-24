@@ -4,6 +4,8 @@ Originally based of Innocent Self Bot but a recode dedicated to ultimate destruc
 
 ## Feature List
 
+• Unoptimised Shitty Code with Bad Spacings
+
 • Ban All
 
 • Kick All
